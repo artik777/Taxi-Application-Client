@@ -4,7 +4,7 @@
       :headers="headers"
       :items="items"
       :loading="loading"
-      sort-by="priceSell"
+      sort-by="price"
       class="elevation-1"
       :search="search"
     >

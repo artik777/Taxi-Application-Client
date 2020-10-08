@@ -44,3 +44,8 @@ export default {
   components: { Header, Footer },
 };
 </script>
+<style>
+a {
+  text-decoration: none;
+}
+</style>

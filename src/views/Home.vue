@@ -3,7 +3,7 @@
     <div v-if="!loading">
       <v-layout>
         <v-flex xs12>
-          <v-carousel height="500px">
+          <v-carousel height="420px" class="mb-3">
             <v-carousel-item
               v-for="ad in promoAds"
               :key="ad"
@@ -15,7 +15,8 @@
           </v-carousel>
         </v-flex>
       </v-layout>
-      <HomeItems />
+      <HomeItems class="mb-3" />
+      <!-- <HomeMap /> -->
     </div>
     <v-container class="h100" fill-height v-else>
       <v-layout align-center justify-center>
@@ -32,6 +33,7 @@
 
 <script>
 import HomeItems from "../components/home/HomeItems";
+// import HomeMap from "../components/home/HomeMap";
 
 export default {
   data() {
@@ -49,6 +51,7 @@ export default {
   },
   components: {
     HomeItems,
+    // HomeMap,
   },
 };
 </script>

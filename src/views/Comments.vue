@@ -9,54 +9,66 @@
       <template v-slot:top>
         <v-toolbar flat color="orange accent-2 black--text">
           <v-toolbar-title>All comments</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn @click="onRefresh">refresh</v-btn>
         </v-toolbar>
       </template>
     </v-data-table>
-    <v-row align="center" justify="center">
-      <v-col cols="12" lg="4" sm="8" md="5">
-        <v-card v-if="loggedIn" class="elevation-12">
-          <v-toolbar color="orange accent-2 black--text" flat>
-            <v-toolbar-title>Write a comment</v-toolbar-title>
-            <v-spacer></v-spacer>
-          </v-toolbar>
-          <v-card-text>
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field
-                v-model="name"
-                filled
-                label="Your name"
-                :rules="[
-                  (v) =>
-                    (v && v.length >= 2 && v.length <= 20) ||
-                    'Name must have 2 and more characters, but less than 20 characters',
-                ]"
-              ></v-text-field>
-              <v-textarea
-                filled
-                v-model="comment"
-                :counter="500"
-                label="Your comment"
-                :rules="[
-                  (v) =>
-                    (v && v.length >= 5 && v.length <= 500) ||
-                    'Comment must have 5 and more characters, but less than 500 characters',
-                ]"
-              ></v-textarea>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  :disabled="!valid"
-                  @click="send"
-                  color="orange accent-2 black--text"
-                  >Send</v-btn
-                >
-              </v-card-actions>
-            </v-form>
-          </v-card-text>
-        </v-card>
-        <p v-else>If you want to add a comment, please login</p>
-      </v-col>
-    </v-row>
+    <v-expansion-panels>
+      <v-expansion-panel>
+        <v-expansion-panel-header>Write your comment</v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-row align="center" justify="center">
+            <v-col cols="12" lg="4" sm="8" md="5">
+              <v-card v-if="loggedIn" class="elevation-12">
+                <v-toolbar color="orange accent-2 black--text" flat>
+                  <v-toolbar-title>Write a comment</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                </v-toolbar>
+                <v-card-text>
+                  <v-form ref="form" v-model="valid" lazy-validation>
+                    <v-text-field
+                      v-model="name"
+                      filled
+                      label="Your name"
+                      :rules="[
+                        (v) =>
+                          (v && v.length >= 2 && v.length <= 20) ||
+                          'Name must have 2 and more characters, but less than 20 characters',
+                      ]"
+                    ></v-text-field>
+                    <v-textarea
+                      filled
+                      v-model="comment"
+                      :counter="500"
+                      label="Your comment"
+                      :rules="[
+                        (v) =>
+                          (v && v.length >= 5 && v.length <= 500) ||
+                          'Comment must have 5 and more characters, but less than 500 characters',
+                      ]"
+                    ></v-textarea>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        :disabled="!valid"
+                        @click="send"
+                        color="orange accent-2 black--text"
+                        >Send</v-btn
+                      >
+                    </v-card-actions>
+                  </v-form>
+                </v-card-text>
+              </v-card>
+              <p v-else>
+                If you want to add a comment, please
+                <router-link to="/register">register and login</router-link>
+              </p>
+            </v-col>
+          </v-row>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </v-container>
 </template>
 
@@ -85,7 +97,6 @@ export default {
         { text: "Name", sortable: false, value: "name" },
         { text: "Comment", sortable: false, value: "comment" },
         { text: "Datetime", sortable: false, value: "timestamp" },
-        { text: "Ip ", sortable: false, value: "ip" },
       ],
       ip: "",
     };
@@ -106,14 +117,10 @@ export default {
       this.loggedIn = true;
     }
   },
-  mounted() {
-    fetch("https://api.ipify.org?format=json")
-      .then((x) => x.json())
-      .then(({ ip }) => {
-        this.ip = ip;
-      });
-  },
   methods: {
+    onRefresh() {
+      this.$store.dispatch("fetchComments");
+    },
     async send() {
       const formData = {
         name: this.name,
@@ -121,12 +128,9 @@ export default {
         timestamp: new Intl.DateTimeFormat("lt", this.options).format(
           this.timestamp
         ),
-        ip: this.ip,
       };
       try {
         this.$store.dispatch("createComment", formData);
-        this.name = "";
-        this.comment = "";
         this.close();
       } catch (error) {
         this.$store.dispatch("setError", error.response.data);

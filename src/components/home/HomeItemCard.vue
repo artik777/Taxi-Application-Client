@@ -54,7 +54,7 @@
 
                     <div class="d-flex align-center justify-space-between">
                       <v-card-title class="pa-0">{{
-                        "Car quantity: " + orderQuantity
+                        "Quantity:" + orderQuantity
                       }}</v-card-title>
                       <div class="d-flex">
                         <v-btn
@@ -95,6 +95,8 @@
                     ></v-text-field>
                     <v-date-picker
                       v-model="picker"
+                      :min="nowDate"
+                      :max="getEndDate"
                       full-width
                       color="orange"
                       header-color="orange"
@@ -133,6 +135,7 @@
         </v-card>
       </v-dialog>
     </v-card-actions>
+    <h1>{{ getEndTime }}</h1>
   </v-card>
 </template>
 
@@ -143,6 +146,14 @@ import axios from "axios";
 export default {
   props: ["id", "imageSrc", "category", "price", "carModel", "quantity"],
   data: () => ({
+    nowDate: new Date().toISOString().slice(0, 10),
+    date: new Date(),
+    picker: new Date().toISOString().substr(0, 10),
+    e7: new Intl.DateTimeFormat("lt", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: false,
+    }).format(new Date()),
     dialog: false,
     valid: true,
     phone: "",
@@ -154,9 +165,7 @@ export default {
     statusAvailable: "Available",
     statusReserved: "Reserved",
     status: "New",
-    e7: null,
     timearrived: "",
-    picker: null,
     timestamp: new Date(),
     options: {
       year: "numeric",
@@ -172,14 +181,14 @@ export default {
     textRules: [
       (v) => !!v || "Field is required",
       (v) =>
-        (v && v.length >= 2 && v.length <= 20) ||
-        "Must have 2 and more characters, but less than 20 characters ",
+        (v && v.length >= 2 && v.length <= 40) ||
+        "Must have 2 and more characters, but less than 40 characters ",
     ],
     addressRules: [
       (v) => !!v || "Field is required",
       (v) =>
-        (v && v.length >= 10 && v.length <= 50) ||
-        "Must have 10 and more characters, but less than 50 characters ",
+        (v && v.length >= 5 && v.length <= 50) ||
+        "Must have 5 and more characters, but less than 50 characters ",
     ],
     phoneRules: [
       (v) =>
@@ -194,6 +203,14 @@ export default {
     },
   },
   computed: {
+    getEndDate() {
+      const endDate = new Date(
+        this.date.getFullYear(),
+        this.date.getMonth() + 1,
+        5
+      );
+      return endDate.toISOString().slice(0, 10);
+    },
     ...mapGetters({
       ads: "ads",
     }),

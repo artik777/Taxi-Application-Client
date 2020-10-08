@@ -1,8 +1,11 @@
 # Taxi app Front-end
 
-# taxicodeacademy.web.app
+# Website:
 
-# taxicodeacademy.web.app/admin
+```
+taxicodeacademy.web.app
+taxicodeacademy.web.app/admin
+```
 
 ## Project setup
 

@@ -45,7 +45,6 @@ export default {
         { text: "Name", sortable: false, value: "name" },
         { text: "Comment", sortable: false, value: "comment" },
         { text: "Datetime", sortable: false, value: "timestamp" },
-        { text: "Ip ", sortable: false, value: "ip" },
         { text: "Actions", value: "actions", sortable: false },
       ],
     };

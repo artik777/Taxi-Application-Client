@@ -48,7 +48,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar app color="black" dark>
+    <v-app-bar app color="black" dark height="70">
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"
         class="hidden-md-and-up"
@@ -79,7 +79,6 @@
           <v-icon left>mdi-exit-to-app</v-icon>Logout
         </v-btn>
       </span>
-
       <span v-else>
         <router-link to="/login">
           <v-btn
@@ -123,7 +122,7 @@ export default {
   methods: {
     onLogout() {
       this.$store.dispatch("logout");
-      this.$router.push("/login");
+      this.$router.push("/");
       this.loggedIn = false;
     },
     onRefresh() {
@@ -136,8 +135,5 @@ export default {
 <style>
 .pointer {
   cursor: pointer;
-}
-a {
-  text-decoration: none;
 }
 </style>

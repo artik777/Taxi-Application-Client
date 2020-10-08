@@ -1,7 +1,13 @@
 <template>
-  <v-footer color="black" class="d-flex align-center justify-center" app>
+  <v-footer
+    color="black"
+    class="d-flex align-center justify-center"
+    height="70"
+    app
+  >
     <span class="white--text"
-      >Artur Pojarkov &copy; {{ new Date().getFullYear() }}</span
+      >&copy; {{ new Date().getFullYear() }} Artur Pojarkov, all rights
+      reserved</span
     >
   </v-footer>
 </template>
