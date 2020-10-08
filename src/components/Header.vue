@@ -137,4 +137,7 @@ export default {
 .pointer {
   cursor: pointer;
 }
+a {
+  text-decoration: none;
+}
 </style>
