@@ -25,7 +25,7 @@
             :rules="[(v) => !!v || 'Name is required']"
           ></v-text-field>
           <v-text-field
-            label="Price"
+            label="Price per hour"
             name="price"
             filled
             color="orange"

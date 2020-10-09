@@ -103,7 +103,7 @@ export default {
       };
       try {
         await this.$store.dispatch("adminRegister", formData);
-        this.$router.push("/");
+        this.$router.push("/admin");
       } catch (e) {
         console.log(e);
       }

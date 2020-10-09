@@ -135,7 +135,6 @@
         </v-card>
       </v-dialog>
     </v-card-actions>
-    <h1>{{ getEndTime }}</h1>
   </v-card>
 </template>
 

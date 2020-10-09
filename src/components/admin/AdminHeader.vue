@@ -22,7 +22,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar app color="black" dark>
+    <v-app-bar app color="black" dark height="70">
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"
         class="hidden-lg-and-up"

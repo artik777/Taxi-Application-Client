@@ -37,7 +37,7 @@
       </template>
     </v-data-table>
     <v-chip dark>
-      {{ "TOTAL PROFIT: " + Number(totalProfit).toFixed(2) + " €" }}
+      {{ "TOTAL REVENUE: " + Number(totalProfit).toFixed(2) + " €" }}
     </v-chip>
   </v-container>
 </template>

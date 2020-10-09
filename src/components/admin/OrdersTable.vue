@@ -4,7 +4,8 @@
       :headers="headers"
       :items="items"
       :loading="loading"
-      sort-by="price"
+      sort-by="timestamp"
+      :sort-desc="[true, false]"
       class="elevation-1"
       :search="search"
     >
@@ -123,7 +124,7 @@ export default {
         { text: "Email", sortable: false, value: "email" },
         { text: "Pickup time", sortable: false, value: "time" },
         { text: "Pickup date", sortable: false, value: "date" },
-        { text: "Time ordered", sortable: false, value: "timestamp" },
+        { text: "Time ordered", sortable: true, value: "timestamp" },
         { text: "Status", sortable: false, value: "status" },
         { text: "Actions", value: "actions", sortable: false },
       ],
